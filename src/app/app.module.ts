@@ -18,6 +18,9 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
+import { EditbookComponent } from './components/dashboard/editbook/editbook.component';
+import { NgxStarsModule } from 'ngx-stars';
+import { BookdetailsComponent } from './components/bookdetails/bookdetails.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,9 @@ import { ToastrModule } from 'ngx-toastr';
     ProductComponent,
     DashComponent,
     CategoryComponent,
+    EditbookComponent,
+    BookdetailsComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -39,6 +45,8 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
+    NgxStarsModule,
+
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-bottom-right',
@@ -46,6 +54,7 @@ import { ToastrModule } from 'ngx-toastr';
       closeButton:true,
     })  ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

@@ -27,7 +27,7 @@
           </div>
           <label for="exampleFormControlInput1" class="form-label">category</label>
           <select class="form-select" aria-label="Default select example" [(ngModel)]="newbook.category_id" [value]="catid">
-            <option *ngFor="let cat of cats ; index as i" value="{{i+1}}">{{cat.name}}</option>
+            <option *ngFor="let cat of cats ; index as i" value="{{cat.id}}">{{cat.name}}</option>
           </select>
           <!-- <div class="alert alert-danger">
             {{newbook|json}}
@@ -41,27 +41,38 @@
     </div>
   </div>
 
-  <table class="table table-dark table-striped">
+  <table class="table table-light table-striped">
       <thead>
-        <tr>
+        <tr class="text-danger">
           <th scope="col">ID</th>
           <th scope="col">Name</th>
           <th scope="col">description</th>
           <th scope="col">price</th>
           <th scope="col">category_id</th>
           <th scope="col">created_at</th>
+          <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody >
         <tr *ngFor="let item of books">
-          <th scope="row">{{item.id}}</th>
+          <th  scope="row">{{item.id}}</th>
           <td class="py-3">{{item.name}}</td>
           <td>{{item.description}}</td>
           <td>{{item.price}}</td>
           <td>{{item.category_id}}</td>
           <td>{{item.created_at}}</td>
+          <td>
+            <button class="btn btn-danger me-2" (click)="deletebook(item.id||0)">Delete</button>
+            <button class="btn btn-warning"  [routerLink]="['/admin/products',item.id]" >Update</button>
+          </td>
         </tr>
       </tbody>
     </table>
 
+
 </div>
+
+
+<!-- ................................................................................ -->
+<!-- ................................................................................ -->
+<!-- ................................................................................ -->

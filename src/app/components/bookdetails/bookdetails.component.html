@@ -1,0 +1,38 @@
+<body>
+
+  <div class="container-fluid">
+
+    <div class="card " >
+      <div class="row" *ngFor="let item of bd ">
+          <div class="col-md-6 text-center align-self-center"> <img class="img-fluid" src="/assets/pngegg (1).png">
+          </div>
+          <div class="col-md-6 info">
+              <div class="row title">
+                  <div class="col">
+                      <h2>Herbalism</h2>
+                      <h2>{{item.name}}</h2>
+
+                  </div>
+                  <div class="col text-right"><a href="#"><i class="fa fa-heart-o"></i></a></div>
+              </div>
+              <p>Natural herbal wash</p> <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span> <span class="fa fa-star-half-full"></span>
+              <span id="reviews">1590 Reviews</span>
+              <div class="row price">
+
+              </div>
+          </div>
+      </div>
+      <div class="row lower  d-flex justify-content-end">
+          <div class="col-5 text-right align-content-end"> <button class="btn" (click)="gitboo()">Add to cart</button> </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+</body>
+

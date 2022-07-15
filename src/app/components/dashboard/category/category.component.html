@@ -1,1 +1,33 @@
-<p>category works!</p>
+<h1 class="text-center bg-warning p-2 text-light fw-bold">Category</h1>
+
+<div class="row mt-3 d-flex  justify-content-around  flex-wrap">
+
+  <div class="col-5 ms-3">
+    <table class="table table-light table-striped ">
+      <thead>
+        <tr class="text-danger ">
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">action</th>
+        </tr>
+      </thead>
+      <tbody >
+        <tr *ngFor="let item of cats ;index as i">
+          <th  scope="row">{{item.id}}</th>
+          <th  scope="row">{{item.name}}</th>
+
+          <td>
+            <button class="btn btn-danger me-2" (click)="deletcat(item.id)" >Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-5 bg-dark bg-opacity-25 ">
+    <div class="mb-2">
+      <label for="exampleFormControlInput1" class="form-label fw-bold text-danger fs-3">Name</label>
+      <input type="text" class="form-control" [(ngModel)]="newcat.name" >
+      <button class="btn btn-warning col-12 mt-4" (click)="addCategory()">Add Category</button>
+    </div>
+  </div>
+</div>

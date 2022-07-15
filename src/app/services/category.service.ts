@@ -37,7 +37,10 @@ export class CategoryService {
 
     addcat(newcat:Icategory):Observable<Icategory>{
       return this.HttpC.post<Icategory>(`${environment.apiurl}/categorys`
-      ,JSON.stringify(newcat),this.httpheaders);
-    }
+      ,JSON.stringify(newcat),this.httpheaders);}
+
+      deletcat(x:number):Observable<Icategory[]>{
+        return this.HttpC.delete<Icategory[]>(`${environment.apiurl}/categorys/${x}`);
+      }
   }
 
