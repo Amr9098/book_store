@@ -1,0 +1,51 @@
+<div class="wrapper d-flex align-items-stretch">
+  <nav id="sidebar">
+    <div class="custom-menu">
+
+    </div>
+    <div class="p-2 pt-5">
+      <h1><a href="index.html" class="logo">kitab
+      </a></h1>
+      <a  *ngFor="let cat of cat" class="btn btn-outline-danger col-12 mt-2" data-abc="true">{{cat.name}}</a>
+
+
+
+
+
+
+
+    </div>
+  </nav>
+
+    <!-- main  -->
+
+  <div id="" class=" pt-2 d-flex flex-wrap ">
+
+    <div class="con d-flex flex-wrap w-100 ">
+      <div class="card m-2" *ngFor="let item of books">
+          <div class="imgBx">
+              <img src="/assets/pngegg (1).png" alt="nike-air-shoe">
+          </div>
+
+          <div class="contentBx">
+
+              <h2>{{item.name}}</h2>
+              <h5 class="text-danger" >price: {{item.price}}</h5>
+              <!-- <h2>ammr</h2> -->
+
+              <div class="size">
+                  <h3>{{item.description}}</h3>
+                </div>
+
+              <a href="#">Buy Now</a>
+          </div>
+
+      </div>
+
+  </div>
+
+
+
+
+  </div>
+</div>
