@@ -3,12 +3,24 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
     <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" aria-current="page" routerLinkActive="active" routerLink="books">MyBooks</a></li>
+        <li class="nav-item"><a class="nav-link" aria-current="page" routerLinkActive="active" routerLink="/books">MyBooks</a></li>
         <li class="nav-item"><a class="nav-link" aria-current="page" href="#validation">Favorites</a></li>
-        <li class="nav-item"><a class="nav-link" aria-current="page"  routerLinkActive="active" routerLink="admin" >Admin</a></li>
+
+        <li>
+          <div class="dropdown ms-2">
+            <button class="btn btn-dark  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+             {{userdata.email}}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" >profile</a></li>
+              <li *ngIf="userdata.email=='admin@gmail.com'" routerLink="/admin"><a class="dropdown-item" >Admin Page</a></li>
+              <li><a class="dropdown-item text-danger" (click)="logout()" >logout</a></li>
+            </ul>
+          </div>
+
+        </li>
 
       </ul>
-      <div class="d-flex ms-lg-4"><a class="btn btn-info" href="#!">Sign In</a><a class="btn btn-warning ms-3" routerLink="login">Sign Up</a></div>
 
 
     </div>

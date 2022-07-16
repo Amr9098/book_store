@@ -14,14 +14,15 @@ import { AdminComponent } from './components/dashboard/admin/admin.component';
 import { ProductComponent } from './components/dashboard/product/product.component';
 import { DashComponent } from './components/dashboard/dash/dash.component';
 import { CategoryComponent } from './components/dashboard/category/category.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
 import { EditbookComponent } from './components/dashboard/editbook/editbook.component';
 import { NgxStarsModule } from 'ngx-stars';
 import { BookdetailsComponent } from './components/bookdetails/bookdetails.component';
-
+import { RegisterComponent } from './components/register/register.component';
+import { AthComponent } from './components/ath/ath.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,8 @@ import { BookdetailsComponent } from './components/bookdetails/bookdetails.compo
     CategoryComponent,
     EditbookComponent,
     BookdetailsComponent,
+    RegisterComponent,
+    AthComponent,
 
   ],
   imports: [
@@ -46,6 +49,7 @@ import { BookdetailsComponent } from './components/bookdetails/bookdetails.compo
     FormsModule,
     BrowserAnimationsModule,
     NgxStarsModule,
+    ReactiveFormsModule,
 
     ToastrModule.forRoot({
       timeOut: 10000,

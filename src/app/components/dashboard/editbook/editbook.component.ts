@@ -7,6 +7,8 @@ import { CategoryService } from 'src/app/services/category.service';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
+import { Book } from 'src/app/models/book';
+import {  map } from 'rxjs/operators';
 
 
 @Component({
@@ -16,29 +18,23 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EditbookComponent implements OnInit {
   cats:Icategory[]=[];
- editbook:IBooks={} as IBooks;
- vv!:IBooks;
- prd:any | undefined=undefined;
+  vv!:IBooks;
+  prd:any | undefined=undefined;
+  editbook:IBooks={} as IBooks;
+  loadedBook: Book[] = [];
+ isFetching = false;
 
   constructor(private categoryS:CategoryService,private activroute:ActivatedRoute,private apibooks:BooksService ,private locati:Location,private toastr: ToastrService,private HttpC:HttpClient ) { }
 
   ngOnInit(): void {
+    let ID:number = (this.activroute.snapshot.paramMap.get("pid"))?Number (this.activroute.snapshot.paramMap.get("pid"))  : 0;
+    this.fetchbook(ID);
+
     this.categoryS.getallcategory().subscribe(e => { this.cats=e} );
-    this.HttpC.get<IBooks>(`http://127.0.0.1:8000/api/books/1`).subscribe(e => { this.vv=e});
-
-    let foundedPrd= this.apibooks.getbookbyid(1);
-      if(foundedPrd){
-        this.prd=foundedPrd;
-        console.log(this.prd);
-
-      }
-      else{
-        alert("Product not found");
-        // this.l.back();
-      }
 
 
-      // this.HttpC.get<IBooks[]>(`http://127.0.0.1:8000/api/books/1`);
+
+
 
   }
 
@@ -56,4 +52,32 @@ export class EditbookComponent implements OnInit {
   });
 
   }
+
+
+  fetchbook(id:number) {
+    this.isFetching = true;
+    this.HttpC
+      .get<{ [key: string]: Book }>(
+        `http://127.0.0.1:8000/api/books/${id}`
+      )
+      .pipe(
+        map(responseData => {
+          const postsArray: Book[] = [];
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key)) {
+              postsArray.push(responseData[key]);
+            }
+          }
+          // console.log(postsArray);
+          return postsArray;
+
+        })
+      )
+      .subscribe(posts => {
+        this.isFetching = false;
+        this.loadedBook = posts;
+        console.log(this.loadedBook);
+
+      });
+}
 }

@@ -5,7 +5,8 @@ import { environment } from 'src/environments/environment';
 import { IBooks } from '../models/ibooks';
 import { HttpHeaders } from '@angular/common/http';
 // import 'rxjs/add/operator/map';
-import { map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
+import { Book } from '../models/book';
 
 
 
@@ -14,6 +15,7 @@ import { map } from 'rxjs/operators';
 })
 export class BooksService {
 private httpheaders={}
+configUrl = 'assets/config.json';
 
   constructor(private HttpC:HttpClient) {
 
@@ -22,7 +24,6 @@ this.httpheaders = {
     'Content-Type':'application/json',
   })
 }
-
 
    }
 
@@ -36,9 +37,10 @@ this.httpheaders = {
     return this.HttpC.get<IBooks[]>(`${environment.apiurl}/books?category_id=${x}`);
 
   }
-  getbookbyid(x:number){
-    return this.HttpC.get<IBooks>(`http://127.0.0.1:8000/api/books/1`);
+    public optional: any;
 
+  getbookbyid(id: number): Observable<Book> {
+    return this.HttpC.get<Book>(`${environment.apiurl}/books/${id}`);
   }
 
   addbook(newBook:IBooks):Observable<IBooks>{
@@ -48,6 +50,8 @@ this.httpheaders = {
   deletbookbyid(x:number):Observable<IBooks[]>{
     return this.HttpC.delete<IBooks[]>(`${environment.apiurl}/books/${x}`);
   }
+
+
   editbook(newBook:IBooks,id:number):Observable<IBooks>{
     return this.HttpC.put<IBooks>(`http://127.0.0.1:8000/api/books/${id}`
     ,JSON.stringify(newBook),this.httpheaders);

@@ -1,24 +1,25 @@
 <div class="col-10 bg-dark bg-opacity-25 w-75 h-75 m-auto mt-3 ">
 <h1 class="text-center bg-warning text-light" > Edit Book</h1>
-<div class="col-8 m-auto">
+<div class="col-8 m-auto" *ngFor="let it of loadedBook">
 
   <div class="mb-2 ">
     <label for="exampleFormControlInput1" class="form-label">Name</label>
-    <input type="text" class="form-control" value="{{prd.name}}" [(ngModel)]="editbook.name" >
+    <input  placeholder="{{it.name}}" type="text" class="form-control"  [(ngModel)]="editbook.name"   >
   </div>
   <div class="mb-2">
     <label for="exampleFormControlTextarea1" class="form-label">description</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"[(ngModel)]="editbook.description"  ></textarea>
+    <textarea placeholder="{{it.description}}" class="form-control" id="exampleFormControlTextarea1" rows="3"[(ngModel)]="editbook.description"  ></textarea>
   </div>
   <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label">price</label>
-    <input type="number" class="form-control" [(ngModel)]="editbook.price"  >
+    <input placeholder="{{it.price}}" type="number" class="form-control" [(ngModel)]="editbook.price"  >
   </div>
   <label for="exampleFormControlInput1" class="form-label">category</label>
   <select class="form-select" aria-label="Default select example" [(ngModel)]="editbook.category_id"  >
     <option *ngFor="let cat of cats ; index as i" value="{{i+1}}">{{cat.name}}</option>
   </select>
   <button class="btn btn-warning col-12 mt-3"(click)="editbookbyid()">Edit</button>
+  <button class="btn btn-danger col-12 mt-3" routerLink="/admin/products">Cancel</button>
 </div>
 <!-- <div class="alert alert-danger ">
   {{editbook|json}}

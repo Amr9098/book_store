@@ -1,0 +1,29 @@
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
+import jwt_decode from "jwt-decode";
+@Injectable({
+  providedIn: 'root'
+})
+export class AdmGuard implements CanActivate {
+  token:any;
+  userto:any;
+
+  constructor(private router:Router,){}
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
+
+      this.token =localStorage.getItem('token');
+        this.userto=jwt_decode(this.token);
+      if( this.userto.email==='admin@gmail.com' ){
+        return true;
+      }else{
+        this.router.navigate(['/login']);
+      }
+    return false;
+  }
+
+}
