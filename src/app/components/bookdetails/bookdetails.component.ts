@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BooksService } from 'src/app/services/books.service';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +10,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Datum, Irate } from 'src/app/models/irate';
 import { RateService } from 'src/app/services/rate.service';
 import jwt_decode from "jwt-decode";
+import { CommentService } from 'src/app/services/comment.service';
+import { Icomadd, Icomment } from 'src/app/models/icomment';
 
 
 @Component({
@@ -17,19 +19,25 @@ import jwt_decode from "jwt-decode";
   templateUrl: './bookdetails.component.html',
   styleUrls: ['./bookdetails.component.css']
 })
-export class BookdetailsComponent implements OnInit {
+export class BookdetailsComponent implements OnInit,OnChanges {
 
-  constructor(private activroute:ActivatedRoute,private apibooks:BooksService ,private toastr: ToastrService,private HttpC:HttpClient , private rates:RateService) { }
+  constructor(private activroute:ActivatedRoute,private apibooks:BooksService ,private toastr: ToastrService,private HttpC:HttpClient , private rates:RateService,private apicomment:CommentService) { }
+  ngOnChanges(): void {
+    this.fetchcomment();
+  }
   bd:IBooks[]=[];
   // bdb:IBooks;
   newrate:Irate={} as Irate;
+  newcomment:Icomadd={} as Icomadd;
    ii:number = (this.activroute.snapshot.paramMap.get("bid"))?Number (this.activroute.snapshot.paramMap.get("bid"))  : 0;
-
    token:any = localStorage.getItem('token');
-
   loadedRate: Datum[] = [];
   loadedBook: Book[] = [];
   isFetching = false;
+  bookcomment:Icomment[] = [];
+  commentcount:number = 0;
+
+  comtext:string = "";
 
 
   public optional: any;
@@ -37,9 +45,11 @@ export class BookdetailsComponent implements OnInit {
 
     let ID:number = (this.activroute.snapshot.paramMap.get("bid"))?Number (this.activroute.snapshot.paramMap.get("bid"))  : 0;
 
+    this.fetchcomment();
+
     this.apibooks.getallbooks().subscribe(c => this.bd = c);
 
-    
+
     this.fetchbook(ID);
   }
 
@@ -89,7 +99,7 @@ export class BookdetailsComponent implements OnInit {
       .subscribe(posts => {
         this.isFetching = false;
         this.loadedRate = posts;
-        console.log(this.loadedRate);
+        // console.log(this.loadedRate);
 
 
       });
@@ -98,7 +108,7 @@ export class BookdetailsComponent implements OnInit {
     console.warn(`User set rating to ${rating}`);
 
 
-    this.newrate.book_id = 1;
+    this.newrate.book_id = this.ii;
       this.newrate.value = rating;
       this.newrate.token = this.token;
 
@@ -113,6 +123,62 @@ export class BookdetailsComponent implements OnInit {
   });
 
   }
+  fetchcomment() {
+    // this.isFetching = true;
+    this.HttpC
+      .get<{ [key: string]: Icomment }>(
+        `http://127.0.0.1:8000/api/comments/1`
+      )
+      .pipe(
+        map(responseData => {
+          const postsArray: Icomment[] = [];
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key)) {
+              postsArray.push(responseData[key]);
+            }
+          }
+          return postsArray;
+
+
+        })
+      )
+      .subscribe(posts => {
+        // this.isFetching = false;
+
+        this.bookcomment = posts;
+        this.commentcount=this.bookcomment.length;
+
+      });
+  }
+
+  addnewcomment(): void {
+
+
+    this.newcomment.book_id = this.ii;
+    this.newcomment.comment_text = this.comtext;
+      this.newcomment.token = this.token;
+
+    this.apicomment.addcomment(this.newcomment).subscribe({
+      next: data => {
+          if(data.comment_text =="The comment text must be at least 5 characters."||data.comment_text =="The comment text field is required."
+          ){
+            this.toastr.error(data.comment_text, "error");
+          }else{
+
+            this.toastr.success('comment added successfully', 'success');
+          }
+
+
+      },
+      error: error => {
+        this.toastr.error(' oops........', "error");
+      }
+  });
+
+  }
+
+
+
 }
 
 
