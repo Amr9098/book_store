@@ -2,13 +2,18 @@
     "cSpell.words": [
         "activroute",
         "addbook",
+        "addrate",
         "apibooks",
         "apiurl",
+        "bookdetails",
+        "Bookdetails",
         "catid",
         "deletbookbyid",
         "editbook",
         "Editbook",
         "editbookbyid",
+        "fetchbook",
+        "fetchrate",
         "getallbooks",
         "getallcategory",
         "getbookbyid",
@@ -17,6 +22,9 @@
         "ibooks",
         "Icategory",
         "inssrtnewbook",
-        "newbook"
+        "newbook",
+        "newrate",
+        "toastr",
+        "Toastr"
     ]
 }

@@ -1,4 +1,7 @@
 export interface Irate {
+    book_id: number;
+    value:   number;
+    token:   string;
 
 }
 

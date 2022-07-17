@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { IBooks } from '../models/ibooks';
 import { Icategory } from '../models/icategory';
-import { Datum, RootObject } from '../models/irate';
+import { Datum, Irate, RootObject } from '../models/irate';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,8 @@ export class RateService {
   this.httpheaders = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
+      // "Authorization": "token " + localStorage.getItem("token")
+
     })
   }
 
@@ -34,9 +36,9 @@ export class RateService {
     // }
 
 
-    addrate(newcat:Icategory){
-      return this.HttpC.post<Icategory>(`${environment.apiurl}/categorys`
-      ,JSON.stringify(newcat),this.httpheaders);}
+    addrate(newrate:Irate){
+      return this.HttpC.post<Irate>(`${environment.apiurl}/ratebook`
+      ,JSON.stringify(newrate),this.httpheaders);}
 
       // deletcat(x:number){
       //   return this.HttpC.delete<Icategory[]>(`${environment.apiurl}/categorys/${x}`);

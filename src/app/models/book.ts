@@ -4,4 +4,5 @@ export interface Book {
   description:string;
   price:number;
   category_id:number;
+  value:number;
 }

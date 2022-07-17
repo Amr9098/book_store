@@ -39,7 +39,9 @@ export class LoginComponent implements OnInit {
 
       },
       error: error => {
-        alert("error"+error);
+        // alert("error"+error);
+        console.log(error);
+
         this.toastr.error( 'pleace enter valid data','Error' );
 
       }

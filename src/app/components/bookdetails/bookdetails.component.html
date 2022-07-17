@@ -13,7 +13,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="product p-4">
+                        <div class="product p-4"> 
                             <div class="d-flex justify-content-between align-items-center">
                                 <div routerLink="/books"class="d-flex align-items-center c"> <i class="fa fa-long-arrow-left"></i> <span class="ml-1">Back</span> </div> <i class="fa fa-shopping-cart text-muted"></i>
                             </div>
@@ -26,7 +26,7 @@
                                       {{item.price +(item.price *(0.15*100/100))}}</small> <span class="ms-2"> 15% OFF</span> </div>
                                 </div>
                             </div>
-                            <ngx-stars [readonly]="true" [color]="'#FF0000'" [size]="2" [maxStars]="5" [initialStars]="4"></ngx-stars>
+                            <ngx-stars [readonly]="true" [color]="'#FF0000'" [size]="2" [maxStars]="5" [initialStars]="item.value"></ngx-stars>
 
                             <p class="about">{{item.description}}</p>
 
@@ -55,9 +55,9 @@
                   height="65" />
                 <div class="w-100">
                   <h5>Add a comment</h5>
-                  <ngx-stars [color]="'#FFA500'" [size]="3" [maxStars]="5" [initialStars]="4.5"></ngx-stars>
+                  <ngx-stars [color]="'#FFA500'" [animation]="true" (ratingOutput)="onRatingSet($event)" [size]="3" [maxStars]="5" [initialStars]="2.5"></ngx-stars>
                   <div class="form-outline">
-                    <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+                    <textarea  class="form-control" id="textAreaExample" rows="4"></textarea>
                     <label class="form-label" for="textAreaExample">What is your view?</label>
                   </div>
                   <div class="d-flex justify-content-between mt-3">
