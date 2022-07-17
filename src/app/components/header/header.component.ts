@@ -15,7 +15,7 @@ userdata:any;
   ngOnInit(): void {
     this.token = localStorage.getItem('token');
     this.userdata=jwt_decode(this.token);
-
+    // console.log(this.userdata);
 
   }
   logout(){

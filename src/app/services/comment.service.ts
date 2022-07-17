@@ -34,9 +34,9 @@ export class CommentService {
       return this.HttpC.post<Icomadd>(`http://127.0.0.1:8000/api/comments`
       ,JSON.stringify(newcomment),this.httpheaders);}
 
-      // deletcomment(x:number):Observable<Icategory[]>{
-      //   return this.HttpC.delete<Icategory[]>(`${environment.apiurl}/categorys/${x}`);
-      // }
+      deletcomment(x:number){
+        return this.HttpC.delete(`${environment.apiurl}/comments/${x}`);
+      }
 
 
 

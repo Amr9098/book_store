@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BooksService } from 'src/app/services/books.service';
 import { ToastrService } from 'ngx-toastr';
 import { IBooks } from 'src/app/models/ibooks';
@@ -21,26 +21,27 @@ import { Icomadd, Icomment } from 'src/app/models/icomment';
 })
 export class BookdetailsComponent implements OnInit,OnChanges {
 
-  constructor(private activroute:ActivatedRoute,private apibooks:BooksService ,private toastr: ToastrService,private HttpC:HttpClient , private rates:RateService,private apicomment:CommentService) { }
-  ngOnChanges(): void {
-    this.fetchcomment();
-  }
+  constructor(private activroute:ActivatedRoute,private apibooks:BooksService ,private toastr: ToastrService,private HttpC:HttpClient , private rates:RateService,private apicomment:CommentService ,private CDRef:ChangeDetectorRef, private router:Router ) { }
   bd:IBooks[]=[];
   // bdb:IBooks;
   newrate:Irate={} as Irate;
   newcomment:Icomadd={} as Icomadd;
-   ii:number = (this.activroute.snapshot.paramMap.get("bid"))?Number (this.activroute.snapshot.paramMap.get("bid"))  : 0;
-   token:any = localStorage.getItem('token');
+  ii:number = (this.activroute.snapshot.paramMap.get("bid"))?Number (this.activroute.snapshot.paramMap.get("bid"))  : 0;
+  token:any = localStorage.getItem('token');
   loadedRate: Datum[] = [];
   loadedBook: Book[] = [];
   isFetching = false;
-  bookcomment:Icomment[] = [];
+  @Input() bookcomment:Icomment[] = [];
   commentcount:number = 0;
+  userdata:any;
 
-  comtext:string = "";
+  @Input() comtext:string = "";
 
 
-  public optional: any;
+  ngOnChanges(): void {
+    this.fetchcomment();
+
+  }
   ngOnInit(): void {
 
     let ID:number = (this.activroute.snapshot.paramMap.get("bid"))?Number (this.activroute.snapshot.paramMap.get("bid"))  : 0;
@@ -49,9 +50,16 @@ export class BookdetailsComponent implements OnInit,OnChanges {
 
     this.apibooks.getallbooks().subscribe(c => this.bd = c);
 
+    this.userdata=jwt_decode(this.token);
+    console.log(this.userdata);
+
 
     this.fetchbook(ID);
   }
+  refrech(){
+    this.CDRef.detectChanges();
+  }
+
 
    fetchbook(id:number) {
     this.isFetching = true;
@@ -176,7 +184,22 @@ export class BookdetailsComponent implements OnInit,OnChanges {
   });
 
   }
+  funcommmentdel(id:number){
+    this.apicomment.deletcomment(id).subscribe({
+      next: data => {
+        this.router.navigate([`books/${this.ii}`]);
+        this.toastr.success('book deleted successfully', 'success');
 
+      },
+      error: error => {
+        // this.toastr.error('Book not deleted ◉_◉ ', 'error');
+        this.toastr.success('book deleted successfully', 'success');
+
+      }
+  });
+
+
+  }
 
 
 }

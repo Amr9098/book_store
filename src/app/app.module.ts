@@ -23,6 +23,7 @@ import { NgxStarsModule } from 'ngx-stars';
 import { BookdetailsComponent } from './components/bookdetails/bookdetails.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AthComponent } from './components/ath/ath.component';
+import { CeratPipe } from './pipes/cerat.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +41,7 @@ import { AthComponent } from './components/ath/ath.component';
     BookdetailsComponent,
     RegisterComponent,
     AthComponent,
+    CeratPipe,
 
   ],
   imports: [

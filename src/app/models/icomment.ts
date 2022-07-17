@@ -1,8 +1,9 @@
 export interface Icomment {
   id: number;
-  created_at: Date;
+  created_at: string;
   name: null;
   comment_text: string;
+  user_id:number;
 }
 export interface Icomadd {
   book_id: number;
